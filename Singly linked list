@@ -1,0 +1,188 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head;
+void createlist();
+void insert_beg ();   
+void insert_end ();  
+void insert_pos();  
+void delete_beg();  
+void delete_end();  
+void delete_pos();  
+void display();  
+ 
+void main ()  
+{  
+    int choice=0;  
+    while(1)   
+    {  
+        printf("\nENTER\n");  
+        printf("1.Insert in begining\n2.Insert at last\n3.Insert at any random location\n4.Delete from Beginning\n5.Delete from last\n6.Delete node after specified location\n7.Show\n9.Exit\n");  
+        printf("Enter your choice:");         
+        scanf("%d",&choice);  
+        switch(choice)  
+        {  
+            case 1:  
+            insert_beg();      
+            break;  
+            case 2:  
+            insert_end();         
+            break;  
+            case 3:  
+            insert_pos();       
+            break;  
+            case 4:  
+            delete_beg();       
+            break;  
+            case 5:  
+            delete_end();        
+            break;  
+            case 6:  
+            delete_pos();          
+            break;  
+            case 7:  
+            display();        
+            break;  
+            case 8:createlist();
+            break;
+            case 9:  
+            exit(0);  
+            break;
+            default:  
+            printf("Please enter valid choice..");  
+        }  
+    }  
+} 
+void createlist()
+{
+    if(head==NULL)
+    {
+        int i,n,num;
+        printf("enter size:");
+        scanf("%d",&n);
+        struct node *newnode=malloc(sizeof(struct node));
+        head=newnode;
+        printf("enter value:");
+        scanf("%d",&num);
+        newnode->data=num;
+        struct node *ptr=head;
+        for(i=2;i<n;i++)
+        {
+            struct node *newnode=malloc(sizeof(struct node));
+            ptr->next=newnode;
+            printf("enter value:");
+            scanf("%d",&num);
+            newnode->data=num;
+            ptr=ptr->next;
+        }
+        
+        
+    }
+}
+void insert_beg()
+{
+    struct node *newnode=malloc(sizeof(struct node));
+    int num;
+    printf("enter value:");
+    scanf("%d",&num);
+    newnode->data=num;
+    newnode->next=head;
+    head=newnode;
+    printf("inserted\n");
+}
+void insert_end() 
+{
+    int num;
+    struct node *ptr=head;
+    struct node *newnode=malloc(sizeof(struct node));
+    printf("enter value:");
+    scanf("%d",&num);
+    while(ptr->next != NULL)
+    {
+        ptr=ptr->next;
+    }
+    ptr->next=newnode;
+    newnode->data=num;
+    printf("inserted\n");
+}
+void insert_pos()
+{
+    int i,pos,num;
+    struct node *newnode=malloc(sizeof(struct node));
+    struct node *ptr=head;
+    printf("enter value:");
+    scanf("%d",&num);
+    printf("enter position:");
+    scanf("%d",&pos);
+    for(i=1;i<pos;i++)
+    {
+        ptr=ptr->next;
+    }
+    newnode->data=num;
+    newnode->next=ptr->next;
+    ptr->next=newnode;
+    printf("inserted\n");
+}
+void delete_beg()
+{
+    struct node *ptr=head;
+    if(head == NULL)
+    {
+        printf("empty\n");
+    }
+    else
+    {
+        head=ptr->next;
+        free(ptr);
+        printf("node deleted\n");
+        
+    }
+}
+void delete_end() 
+{
+    struct node *ptr=head;
+    while(ptr->next->next!=NULL)
+    {
+        ptr=ptr->next;
+    }
+    ptr->next=NULL;
+    free(ptr);
+    printf("deleted\n");
+}
+void delete_pos() 
+{
+    struct node *ptr=head;
+    int i,pos;
+    printf("enter position:");
+    scanf("%d",&pos);
+    for(i=1;i<pos;i++)
+    {
+        ptr=ptr->next;
+    }
+    ptr->next=ptr->next->next;
+    printf("deleted\n");
+}
+void display()
+{
+    struct node *ptr=malloc(sizeof(struct node));
+    ptr=head;
+    if(ptr==NULL)
+    {
+        printf("empty\n");
+        
+    }
+    else
+    {
+        printf("values are:\n");
+        while(ptr!=NULL)
+        {
+            printf("%d ",ptr->data);
+            ptr=ptr->next;
+        }
+    }
+}
