@@ -1,0 +1,47 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 10
+void push(int i);
+void pop();
+int choice,i,*tos,*p1,arr_stack[MAX],exit_p=1;
+int main(){
+int value;
+tos=arr_stack;
+p1=arr_stack;
+do{
+printf("1.Push\t2.Pop\t3.Exit\nEnter your choice: ");
+scanf("%d",&choice);
+switch(choice){
+case 1:
+printf("Enter value: ");
+scanf("%d",&value);
+push(value);
+break;
+case 2:
+pop();
+break;
+default:
+exit_p=0;
+break;
+}
+}while(exit_p);
+}
+void push(int i){
+if(p1==(tos+MAX)){
+printf("Stack overflow\n");
+}
+else{
+*p1=i;
+printf("Push value: %d\n",*(p1));
+p1++;
+}
+}
+void pop(){
+if(p1==tos){
+printf("Stack underflow!\n");
+}
+else{
+p1--;
+printf("POP value: %d\n",*(p1));
+}
+}
